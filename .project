@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>config-maven-jpa-ejb-jsf</name>
+	<name>config_maven_jpa_cdi_jsf</name>
 	<comment></comment>
 	<projects>
 	</projects>

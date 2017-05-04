@@ -1,30 +1,52 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
+<!DOCTYPE html>
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<meta charset="UTF-8" />
 <title>Insert title here</title>
+<h:outputStylesheet library="css" name="style.css"/>
 </h:head>
-<h:body>
-<!-- 	<ui:composition> -->
-		<div>
-			<h1>Bienvenue sur le site de Personne</h1>
-
-			<h1>Informations client</h1>
-			<h:form>
-				<br/>Nom
-				<h:inputText id="nom" label="Nom" value="#{personneBean.nom}" required="true" />
-				<br />Prenom
-				<h:inputText id="prenom" label="Prenom" value="#{personneBean.prenom}" required="true" />
-				<br />
-					<h:commandButton value="Valider" action="#{personneBean.getCreerPersonne()}"/>
-			</h:form>
-		</div>
-		<br/>
-		<br/>
-<!-- 	</ui:composition> -->
-</h:body>
+<body>
+	<h:form>
+		<h:messages errorClass="error"/>
+		<h:panelGrid columns="2" cellpadding="5">
+			<h:outputLabel value="nom" />
+			<h:inputText id="nom" value="#{clientBean.client.nom}" />
+			<h:outputLabel value="prenom" />
+			<h:inputText id="prenom" value="#{clientBean.client.prenom}" />
+		</h:panelGrid>
+		<h:commandButton action="#{clientBean.add}" value="#{clientBean.editMode ? 'Modifier':'Ajouter'}" />
+		<h2>Liste des clients</h2>
+		<h:dataTable value="#{clientBean.list()}" var="c" border="1" >
+			<h:column>
+				<f:facet name="header">ID</f:facet>
+				<h:outputText value="#{c.id}"/>
+			</h:column>
+		
+			<h:column>
+				<f:facet name="header">NOM</f:facet>
+				<h:outputText value="#{c.nom}"/>
+			</h:column>
+		
+			<h:column>
+				<f:facet name="header">PRENOM</f:facet>
+				<h:outputText value="#{c.prenom}"/>
+			</h:column>
+			<h:column>
+				<f:facet name="header">SUPPRIMER</f:facet>
+				<h:commandLink action="#{clientBean.delete}" value="Supprimer">
+					<f:setPropertyActionListener target="#{clientBean.client}" value="#{c}" />
+				</h:commandLink>
+			</h:column>	
+			<h:column>
+				<f:facet name="header">MAJ</f:facet>
+				<h:commandLink action="#{clientBean.maj}" value="Maj">
+					<f:setPropertyActionListener target="#{clientBean.client}" value="#{c}" />
+				</h:commandLink>
+			</h:column>	
+		</h:dataTable>
+	</h:form>
+</body>
 </html>
